@@ -2,11 +2,7 @@ from selenium.webdriver.common.by import By
 from behave import given, when, then
 from time import sleep
 
-@when('Click Sign In')
-def Click_sign_in(context):
-    context.driver.find_element(By.XPATH, '//*[@id="headerPrimary"]/a[4]/span').click()
-    sleep(4)
-    context.driver.find_element(By.XPATH, "//a[@data-test='accountNav-signIn']").click()
+
 
 @then('Verify Sign in form opened')
 def verify_signin_form(context):
