@@ -1,12 +1,15 @@
 from selenium.webdriver.common.by import By
 from behave import given, when, then
 from time import sleep
+from selenium.webdriver.support import expected_conditions as EC
 
 SEARCH_INPUT = (By.ID, 'search')
 SEARCH_BTN = (By.XPATH, "//button[@data-test='@web/Search/SearchButton']")
 CART_ICON = (By.CSS_SELECTOR, "a[data-test='@web/CartLink']")
 HEADER = (By.CSS_SELECTOR, "[class*='UtilityHeaderWrapper']")
 HEADER_LINKS = (By.CSS_SELECTOR, "a[id*='utilityNav']")
+CLICK_SIGN_IN = (By.CSS_SELECTOR, "a[aria-label='Account, sign in']")
+
 
 @given('Open Target main page')
 def open_target(context):
@@ -19,20 +22,30 @@ def search_product(context, item):
     context.driver.find_element(*SEARCH_BTN).click()
     sleep(6)
 
+
 @when('Click on Cart icon')
 def Click_on_cart(context):
     context.driver.find_element(*CART_ICON).click()
-    sleep(4)
+    context.wait.until(
+        EC.presence_of_element_located(CART_ICON),
+        message='Cart icon not present'
+    )
+
 
 @when('Click Sign In')
 def Click_sign_in(context):
-    context.driver.find_element(By.CSS_SELECTOR, "a[aria-label='Account, sign in']").click()
-    sleep(4)
+    context.driver.find_element(*CLICK_SIGN_IN).click()
+    context.wait.until(
+        EC.presence_of_element_located(CLICK_SIGN_IN),
+        message='Sign in button not present'
+    )
     context.driver.find_element(By.CSS_SELECTOR, "a[data-test='accountNav-signIn']").click()
+
 
 @then('Verify header in shown')
 def verify_header_shown(context):
     context.driver.find_element(*HEADER)
+
 
 @then('Verify header has 6 links')
 def verify_header_links(context):
