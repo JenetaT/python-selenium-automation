@@ -13,18 +13,20 @@ CLICK_SIGN_IN = (By.CSS_SELECTOR, "a[aria-label='Account, sign in']")
 
 @given('Open Target main page')
 def open_target(context):
-    context.driver.get('https://www.target.com/')
+    # context.driver.get('https://www.target.com/')
+    context.app.main_page.open_main()
 
 
 @when("Search for {item}")
 def search_product(context, item):
-    context.driver.find_element(*SEARCH_INPUT).send_keys(item)
-    context.driver.find_element(*SEARCH_BTN).click()
-    sleep(6)
+    # context.driver.find_element(*SEARCH_INPUT).send_keys(item)
+    # context.driver.find_element(*SEARCH_BTN).click()
+    # sleep(6)
+    context.app.header.search_product(item)
 
 
 @when('Click on Cart icon')
-def Click_on_cart(context):
+def click_on_cart(context):
     context.driver.find_element(*CART_ICON).click()
     context.wait.until(
         EC.presence_of_element_located(CART_ICON),
@@ -33,7 +35,7 @@ def Click_on_cart(context):
 
 
 @when('Click Sign In')
-def Click_sign_in(context):
+def click_sign_in(context):
     context.driver.find_element(*CLICK_SIGN_IN).click()
     context.wait.until(
         EC.presence_of_element_located(CLICK_SIGN_IN),
@@ -50,7 +52,7 @@ def verify_header_shown(context):
 @then('Verify header has 6 links')
 def verify_header_links(context):
     links = context.driver.find_elements(*HEADER_LINKS)
-    #print(links)
+    # print(links)
     assert len(links) == 6, f'Expected 6 links but got {len(links)}'
 
 # @then('Verify header has {expected_amount} links')

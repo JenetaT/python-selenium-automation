@@ -1,5 +1,5 @@
-# Created by svetlanalevinsohn at 3/30/24
 Feature: Search tests
+
   Scenario: User can search for coffee
     Given Open Target main page
     When Search for coffee
