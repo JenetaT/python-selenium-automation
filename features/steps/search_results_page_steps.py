@@ -14,6 +14,12 @@ def verify_search_results(context, expected_item):
     context.app.search_results_page.verify_search_results(expected_item)
 
 
+@then('Verify that URL has {partial_url}')
+def verify_search_page_url(context,partial_url):
+    # context.wait.until(EC.url_contains(partial_url), message=f'URL does not contain {partial_url}')
+    context.app.search_result_page.verify_partial_url(partial_url)
+
+
 @then('Verify that every product has a name and an image')
 def verify_products_name_img(context):
     # To see ALL listings (comment out if you only check top ones):
